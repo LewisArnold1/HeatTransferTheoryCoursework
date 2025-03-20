@@ -331,8 +331,11 @@ def iterative_solution(T_c, T_s):
         # Compute error
         ts_error = abs(T_s_new - T_s)
 
-        # Store results in a list
-        results.append(["T_s Iter", ts_iterations, T_s_new, T_c, T_out, ts_error, h_c_sc, h_r_sc, h_c_ca, h_r_ca, U_overall])
+        # Store results in a list with correctly aligned columns
+        results.append([
+            "T_s Iter", ts_iterations, T_s, T_s_new, T_c, T_out, ts_error,
+            h_c_sc, h_r_sc, h_c_ca, h_r_ca, U_overall
+        ])
 
         # Check convergence
         if ts_error < error_threshold:
@@ -364,8 +367,11 @@ def compute_Tc(T_s, T_c):
         # Compute T_out for reference
         T_out = outlet_temperature(U_overall, T_s)
 
-        # Store results in a list
-        results.append(["T_c Iter", tc_iterations, T_s, T_c_new, T_out, tc_error, h_c_sc, h_r_sc, h_c_ca, h_r_ca, U_overall])
+        # Store results in a list with correct column order
+        results.append([
+            "T_c Iter", tc_iterations, T_s, T_s, T_c_new, T_out, tc_error,
+            h_c_sc, h_r_sc, h_c_ca, h_r_ca, U_overall
+        ])
 
         # Check convergence
         if tc_error < error_threshold:
@@ -385,7 +391,7 @@ if __name__ == "__main__":
 
     # Convert results to DataFrame
     df_results = pd.DataFrame(results, columns=[
-        "Iteration Type", "Iteration", "T_s (°C)", "T_c (°C)", "T_out (°C)", "Error",
+        "Iteration Type", "Iteration", "T_s Prev (°C)", "T_s New (°C)", "T_c (°C)", "T_out (°C)", "Error",
         "h_c_sc", "h_r_sc", "h_c_ca", "h_r_ca", "U_overall"
     ])
 
